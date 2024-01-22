@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<libraries>
+    <library>
+        <location>amd/src/highlight.js</location>
+        <name>hljs</name>
+        <version>11.7.0</version>
+        <license>BSD-3-Clause</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
+    <library>
+        <location>amd/src/languages/*.js</location>
+        <name>hljs</name>
+        <version>11.7.0</version>
+        <license>BSD-3-Clause</license>
+        <licenseversion>3.0</licenseversion>
+    </library>
+</libraries>

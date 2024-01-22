@@ -1,0 +1,76 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with Moodle. If not, see
+    <http: //www.gnu.org/licenses />.
+}}
+{{!
+    @template mod_snippet/view_page
+
+    This template renders the view page content.
+
+    Example context (json):
+    {
+        "snip" : {
+            "name" : "Snip name",
+            "display_language" : "php",
+            "language" : "php",
+            "snippet" : "Code",
+        }
+        "categories" : "category",
+        "displaylist" : "Display the snip as a list",
+        "hasnosnip" : "User has no snip yet",
+        "cap_addsnip" : "User can add a snip",
+    }
+}}
+<div class="row">
+    <div class="col-3">
+        {{> mod_snippet/category_nav }}
+    </div>
+    <div class="col-9">
+        <h3>
+            {{#str}} pluginnameplural, mod_snippet {{/str}}
+            {{> mod_snippet/components/btn_create_snip }}
+        </h3>
+
+        {{#layout_snipwithsnipnav}}
+            {{> mod_snippet/snips/snipwithsnipnav }}
+        {{/layout_snipwithsnipnav}}
+
+        {{#layout_fullsnip}}
+            {{#snip}}
+                {{> mod_snippet/snips/snip }}
+            {{/snip}}
+        {{/layout_fullsnip}}
+
+        {{! Display a list of snips in an accordion format. }}
+        {{#layout_accordionlist}}
+            {{> mod_snippet/snips/snips }}
+        {{/layout_accordionlist}}
+
+        {{! No snip yet. Offer to create one. }}
+        {{#layout_hasnosnip}}
+            <p>{{#str}} no_snip_yet, mod_snippet {{/str}}</p>
+            {{#cap_addsnip}}
+            <p>{{#str}} clickhere_add_snip, mod_snippet {{/str}}<br />
+                <a href="/mod/snippet/snip.php?id={{cmid}}" class="btn btn-secondary">
+                    {{#str}} btn_create_snippet, mod_snippet{{/str}}
+                </a>
+            </p>
+            {{/cap_addsnip}}
+        {{/layout_hasnosnip}}
+    </div>
+</div>
+{{#js}}
+require(['mod_snippet/category'], function(category) {
+    category.init({{cmid}});
+});
+{{/js}}
